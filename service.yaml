@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: v8-bundler-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: v8-bundler
+  ports:
+    - port: 4337
+      targetPort: 4337

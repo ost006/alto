@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: v8-bundler
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: v8-bundler
+  template:
+    metadata:
+      labels:
+        app: v8-bundler
+    spec:
+      containers:
+      - name: v8-bundler
+        image: ghcr.io/pimlicolabs/alto:v1.2.2
+        ports:
+        - containerPort: 4337
+        command: ["./alto"]
+        args: [
+          "--port", "4337",
+          "--entrypoints", "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789",
+          "--entrypoint-simulation-contract", "0xBbe8A301FbDb2a4CD58c4A37c262ecef8f889c47",
+          "--executor-private-keys", "0x",
+          "--utility-private-key", "0x",
+          "--rpc-url", "https://archive-en.node.kaia.io",
+          "--safe-mode", "false",
+          "--max-block-range", "100",
+          "--mempool-max-queued-ops", "10"
+        ]
